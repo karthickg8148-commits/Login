@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <style>
+    /* 🌸 Background styling */
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      color: #ff1493;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group {
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 2px solid #ff69b4;
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      border-color: #ff1493;
+      box-shadow: 0 0 5px #ff69b4;
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .eye {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #ff1493;
+    }
+
+    .loader {
+      display: none;
+      margin: 10px auto;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #ff1493;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ✅ Success popup */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: pop 0.5s ease-in-out;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup.show {
+      visibility: visible;
+    }
+
+    .popup h3 {
+      color: #ff1493;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>🔐 User Login</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter username" required />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <div class="password-box">
+          <input type="password" id="password" placeholder="Enter password" required />
+          <span id="togglePassword" class="eye">👁️</span>
+        </div>
+      </div>
+
+      <button type="submit" id="loginBtn">Login</button>
+      <div class="loader" id="loader"></div>
+    </form>
+  </div>
+
+  <!-- ✅ Success Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>✅ Login Successful!</h3>
+      <p>Welcome back 🎉</p>
+      <button onclick="closePopup()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const loader = document.getElementById('loader');
+    const popup = document.getElementById('popup');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    // 👁️ Toggle Password Visibility
+    togglePassword.addEventListener('click', () => {
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+      togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+
+    // ✅ Always show success for any username/password
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      loader.style.display = 'block';
+
+      setTimeout(() => {
+        loader.style.display = 'none';
+        popup.classList.add('show');
+      }, 1500); // simulate loading delay
+    });
+
+    // ✅ Close popup and confirm
+    function closePopup() {
+      popup.classList.remove('show');
+      alert('🎉 Login confirmed successfully!');
+      form.reset();
+    }
+  </script>
+</body>
+</html>
