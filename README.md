@@ -1,11 +1,3 @@
-# Got it 👍
-You want a README file only for your Login Authentication System project — similar in style to your NewsHub and Traffic Flow Optimization examples (with sections like Features, Technologies Used, How It Works, etc.).
-
-Here’s your clean, professional README.md content for your Login Authentication System 👇
-
-
----
-
 🔐 Login Authentication System
 
 The Login Authentication System is a simple and secure web application that allows users to register, log in, and manage sessions within a browser.
